@@ -1,0 +1,70 @@
+// Seleciona os botões do jogo
+const buttonPedra = document.getElementById('pedra');
+const buttonPapel = document.getElementById('papel');
+const buttonTesoura = document.getElementById('tesoura');
+const buttonReiniciar = document.querySelector('.reiniciar');
+
+// Seleciona os elementos do placar e resultado
+const result = document.querySelector('.result');
+const placarHumano = document.querySelector('h3 span');
+const placarIA = document.querySelector('.jogador-ia span');
+
+// Variáveis para guardar os pontos
+let pontosHumano = 0;
+let pontosIA = 0;
+
+// Função principal do jogo
+function playRound(escolhaJogador) {
+    const opcoes = ['pedra', 'papel', 'tesoura'];
+    const emojis = { pedra: '✊🏾', papel: '🤚🏼', tesoura: '✌️' };
+    const escolhaIA = opcoes[Math.floor(Math.random() * 3)]; // escolha aleatória da IA, math.floor arredonda para baixo
+
+    let mensagem = ''; // Mensagem de resultado para o usuário
+    let classe = ''; // Classe para adicionar animação no resultado
+
+    if (escolhaJogador === escolhaIA) {
+        mensagem = 'Empate!';
+        classe = 'empate';
+    } else if ( // Verifica se o jogador ganhou com base na escolha da IA
+        (escolhaJogador === 'pedra' && escolhaIA === 'tesoura') ||
+        (escolhaJogador === 'papel' && escolhaIA === 'pedra') ||
+        (escolhaJogador === 'tesoura' && escolhaIA === 'papel')
+    ) {
+        mensagem = 'Você ganhou!';
+        classe = 'vitoria';
+        pontosHumano++;
+    } else {
+        mensagem = 'IA ganhou!'; // Verifica se a IA ganhou com base na escolha do jogador
+        classe = 'derrota'; // Adiciona a classe de derrota ao resultado
+        pontosIA++; // Incrementa o ponto da IA
+    }
+
+    // Atualiza o placar
+    placarHumano.textContent = pontosHumano; 
+    placarIA.textContent = pontosIA;
+
+    // Mostra o resultado e adiciona animação
+    result.className = `result ${classe} animar`;
+    result.textContent = `Você: ${emojis[escolhaJogador]} | IA: ${emojis[escolhaIA]} — ${mensagem}`;
+
+    // Remove a classe de animação depois de 500ms para poder animar de novo na próxima jogada
+    setTimeout(() => {
+        result.classList.remove('animar'); // Remove a classe de animação
+    }, 500);
+}
+
+// Função para reiniciar o jogo
+function reiniciarJogo() {
+    pontosHumano = 0;
+    pontosIA = 0;
+    placarHumano.textContent = pontosHumano;
+    placarIA.textContent = pontosIA;
+    result.textContent = '';
+    result.className = 'result';
+}
+
+// Adiciona os eventos de clique
+buttonPedra.addEventListener('click', () => playRound('pedra'));
+buttonPapel.addEventListener('click', () => playRound('papel'));
+buttonTesoura.addEventListener('click', () => playRound('tesoura'));
+buttonReiniciar.addEventListener('click', reiniciarJogo);
