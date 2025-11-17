@@ -13,11 +13,17 @@ const placarIA = document.querySelector('.jogador-ia span');
 let pontosHumano = 0;
 let pontosIA = 0;
 
-const GAME_OPTIONS = { 
+const GAME_OPTIONS = { // ENUM para as opções do jogo
     ROCK: 'pedra',
     PAPER: 'papel',
     SCISSORS: 'tesoura'
 }
+/*
+ENUM -> Para que serve?
+Organização: Em vez de espalhar strings como 'pedra', 'papel', 'tesoura' pelo código, você usa GAME_OPTIONS.ROCK, GAME_OPTIONS.PAPER, etc.
+Evita erros de digitação: Se você errar ao digitar 'tesoura' em algum lugar, pode dar bug. Usando o objeto, você só precisa acertar uma vez.
+Facilita manutenção: Se quiser mudar 'pedra' para 'rocha', basta mudar no objeto.
+*/
 
 // Função principal do jogo
 function playRound(escolhaJogador) {
@@ -46,7 +52,7 @@ function playRound(escolhaJogador) {
     }
 
     // Atualiza o placar
-    placarHumano.textContent = pontosHumano; 
+    placarHumano.textContent = pontosHumano;
     placarIA.textContent = pontosIA;
 
     // Mostra o resultado e adiciona animação
