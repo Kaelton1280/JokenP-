@@ -13,9 +13,15 @@ const placarIA = document.querySelector('.jogador-ia span');
 let pontosHumano = 0;
 let pontosIA = 0;
 
+const GAME_OPTIONS = { 
+    ROCK: 'pedra',
+    PAPER: 'papel',
+    SCISSORS: 'tesoura'
+}
+
 // Função principal do jogo
 function playRound(escolhaJogador) {
-    const opcoes = ['pedra', 'papel', 'tesoura'];
+    const opcoes = [GAME_OPTIONS.ROCK, GAME_OPTIONS.PAPER, GAME_OPTIONS.SCISSORS];
     const emojis = { pedra: '✊🏾', papel: '🤚🏼', tesoura: '✌️' };
     const escolhaIA = opcoes[Math.floor(Math.random() * 3)]; // escolha aleatória da IA, math.floor arredonda para baixo
 
@@ -26,9 +32,9 @@ function playRound(escolhaJogador) {
         mensagem = 'Empate!';
         classe = 'empate';
     } else if ( // Verifica se o jogador ganhou com base na escolha da IA
-        (escolhaJogador === 'pedra' && escolhaIA === 'tesoura') ||
-        (escolhaJogador === 'papel' && escolhaIA === 'pedra') ||
-        (escolhaJogador === 'tesoura' && escolhaIA === 'papel')
+        (escolhaJogador === GAME_OPTIONS.ROCK && escolhaIA === GAME_OPTIONS.SCISSORS) ||
+        (escolhaJogador === GAME_OPTIONS.PAPER && escolhaIA === GAME_OPTIONS.ROCK) ||
+        (escolhaJogador === GAME_OPTIONS.SCISSORS && escolhaIA === GAME_OPTIONS.PAPER)
     ) {
         mensagem = 'Você ganhou!';
         classe = 'vitoria';
